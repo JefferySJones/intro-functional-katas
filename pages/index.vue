@@ -25,7 +25,7 @@ const summedEvensExpected = ref(4754)
 const summedEvensCorrect = reactive(summedEvens.value == summedEvensExpected.value)
 
 function sumEvens (mixedNumbers = [1, 2, 3]) {
-    return 2
+    return mixedNumbers.filter((number) => number % 2 == 0).reduce((a, c, i) => a + c)
 }
 
 /**
@@ -51,7 +51,7 @@ const angryStringsExpected = ref(["OK", "I'LL DO THAT", "NO PROBLEM", "I AM NOT 
 const angryStringsCorrect = reactive(isEqual(angryStrings.value, angryStringsExpected.value))
 
 function makeStringsAngry (normalStrings = ['string']) {
-    return ['STRING']
+    return normalStrings.map(string => string.toUpperCase())
 }
 
 /**
@@ -77,7 +77,7 @@ const multipliedNumbersExpected = ref([2, 4, 6, 8, 10, 12, 14, 16, 18, 20])
 const multipliedNumbersCorrect = reactive(isEqual(multipliedNumbers.value, multipliedNumbersExpected.value))
 
 function multiplyByTwo(numbersToMultiply = [2]) {
-    return [4]
+    return numbersToMultiply.map(number => number * 2)
 }
 
 
@@ -107,7 +107,7 @@ const changedCharactersExpected = ref(charactersSummary)
 const changedCharactersCorrect = reactive(isEqual(changedCharacters.value, changedCharactersExpected.value))
 
 function characterQuotes(characters = [{name: "bob", quote: "no", chicken: true}]) {
-    return [{name: "bob", quote: "no"}]
+    return characters.map(character => ({ name: character.name, quote: character.quote }))
 }
 
 
@@ -134,7 +134,7 @@ const filteredWordsExpected = ref(["grapefruit", "watermelon", "pineapple", "blu
 const filteredWordsCorrect = reactive(JSON.stringify(filteredWords.value) === JSON.stringify(filteredWordsExpected.value))
 
 function filterWords (words = ['longword', 'word']) {
-    return ['longword']
+    return words.filter(word => word.length > 6)
 }
 
 
@@ -174,7 +174,7 @@ const completedItemsExpected = ref([
 const completedItemsCorrect = reactive(JSON.stringify(completedItems.value) === JSON.stringify(completedItemsExpected.value))
 
 function filterCompleted (todoItems = []) {
-    return []
+    return todoItems.filter(item => item.completed).map(item => ({...item, "ezpz": item.task.split(' ').length <= 2}))
 }
 
 /**
@@ -199,7 +199,7 @@ const squaredNumbersExpected = ref(10034)
 const squaredNumbersCorrect = reactive(JSON.stringify(squaredNumbers.value) == JSON.stringify(squaredNumbersExpected.value))
 
 function squareAllFilterEvensAndAddAll (totallyOriginalNumbers = []) {
-    return []
+    return totallyOriginalNumbers.map(number => number ^ 2).filter(number => number % 2 !== 0).reduce((a,c) => a + c)
 }
 
 /**
@@ -223,7 +223,12 @@ const longestWordExpected = ref('pneumonoultramicroscopicsilicovolcanoconiosis')
 const longestWordCorrect = reactive(longestWord.value === longestWordExpected.value)
 
 function getLongestWord(words) {
-  return 'word'
+  return words.reduce((a,c) => {
+    if(c.length > a.length) {
+        return c
+    }
+    return a
+} ,'')
 }
 
 </script>
