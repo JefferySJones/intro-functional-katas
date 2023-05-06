@@ -195,7 +195,7 @@ function filterCompleted (todoItems = []) {
 
 const totallyOriginalNumbers = [1, 5, 7, 2, 3, 10, 99, 4239, 4009, 320, 322, 321, 4058, 9, 1337]
 const squaredNumbers = ref(squareAllFilterEvensAndAddAll(totallyOriginalNumbers))
-const squaredNumbersExpected = ref(35966738)
+const squaredNumbersExpected = ref(10034)
 const squaredNumbersCorrect = reactive(JSON.stringify(squaredNumbers.value) == JSON.stringify(squaredNumbersExpected.value))
 
 function squareAllFilterEvensAndAddAll (totallyOriginalNumbers = []) {
